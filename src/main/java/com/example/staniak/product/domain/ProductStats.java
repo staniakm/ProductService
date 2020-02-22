@@ -1,4 +1,4 @@
-package com.example.staniak.product.controller;
+package com.example.staniak.product.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

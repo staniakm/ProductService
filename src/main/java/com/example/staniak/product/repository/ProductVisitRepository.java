@@ -11,7 +11,7 @@ public class ProductVisitRepository {
 
     private Map<Long, AtomicInteger> visitCount = new ConcurrentHashMap<>();
 
-    public void increaseVisitCount(Long productId) {
+    synchronized public void increaseVisitCount(Long productId) {
         visitCount.putIfAbsent(productId, new AtomicInteger(0));
         visitCount.get(productId).incrementAndGet();
     }

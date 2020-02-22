@@ -3,7 +3,6 @@ package com.example.staniak.product.controller;
 import com.example.staniak.product.exception.ApiErrorResponse;
 import com.example.staniak.product.exception.ProductNotFoundException;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,16 +10,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 @RestControllerAdvice
 public class GlobalExceptionHandlerController {
 
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ResponseStatus(value = NOT_FOUND)
     @ExceptionHandler({ProductNotFoundException.class})
     public ResponseEntity<ApiErrorResponse> handleEntityNotFoundException(Exception ex, WebRequest request) {
 
         return prepareResponse(new ApiErrorResponse.ApiErrorResponseBuilder()
-                .withStatus(HttpStatus.NOT_FOUND)
-                .withError_code(HttpStatus.NOT_FOUND.toString())
+                .withStatus(NOT_FOUND)
+                .withErrorCode(NOT_FOUND.toString())
                 .withMessage(ex.getMessage())
                 .withDetail(request.getDescription(false)).build());
     }

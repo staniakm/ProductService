@@ -13,8 +13,8 @@ import static java.lang.String.format;
 @AllArgsConstructor
 public class ProductService {
 
-    private ProductRepository productRepository;
-    private DiscountCalculator discountCalculator;
+    private final ProductRepository productRepository;
+    private final DiscountCalculator discountCalculator;
 
     public ProductDto findProductById(Long productId) {
 

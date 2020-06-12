@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class ProductController {
 
-    private ProductService productService;
-    private ProductVisitService productVisitService;
+    private final ProductService productService;
+    private final ProductVisitService productVisitService;
 
     @GetMapping("{id}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {

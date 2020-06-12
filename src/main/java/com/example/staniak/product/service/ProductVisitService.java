@@ -17,7 +17,7 @@ import static java.lang.String.format;
 @Transactional(isolation = Isolation.READ_COMMITTED)
 public class ProductVisitService {
 
-    private ProductStatsRepository productStatsRepository;
+    private final ProductStatsRepository productStatsRepository;
 
     @Transactional(propagation = Propagation.REQUIRED)
     public void increaseVisitCounter(Long productId) {

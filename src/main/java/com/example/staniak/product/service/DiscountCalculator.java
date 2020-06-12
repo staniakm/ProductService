@@ -13,15 +13,17 @@ import java.math.RoundingMode;
 @AllArgsConstructor
 public class DiscountCalculator {
 
-    private DiscountRepository discountRepository;
+    private final DiscountRepository discountRepository;
 
     public BigDecimal getPriceAfterDiscount(Product product) {
 
-        final Integer discountPercent = discountRepository.getProductTypeDiscountByProductId(product.getId())
-                .map(ProductTypeDiscount::getDiscountPercent).orElse(0);
-        return product.getPrice()
-                .multiply(BigDecimal.valueOf(100 - discountPercent)
-                        .divide(BigDecimal.valueOf(100), 2, RoundingMode.CEILING));
+        return discountRepository.getProductTypeDiscountByProductId(product.getId())
+                .map(ProductTypeDiscount::getDiscountPercent)
+                .map(discount ->
+                        product.getPrice()
+                                .multiply(BigDecimal.valueOf(100 - discount)
+                                        .divide(BigDecimal.valueOf(100), 2, RoundingMode.CEILING)))
+                .orElseGet(() -> product.getPrice());
     }
 
 }
